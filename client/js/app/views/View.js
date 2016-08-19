@@ -9,6 +9,7 @@ class View {
 	}
 
 	update(model) {
+		console.log(this);
 		this._el.innerHTML = this.template(model);
 	}
 }
