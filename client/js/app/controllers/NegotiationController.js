@@ -15,19 +15,7 @@ class NegotiationController {
 		
 		let self = this;
 
-		this._negotiationList = new Proxy(new NegotiationList(), {
-			get(target, prop, receiver) {
-				if (['add', 'clear'].includes(prop) && typeof(target[prop]) == typeof(Function)) {
-					return function() {
-						console.log(`intercepting ${prop}`);
-						Reflect.apply(target[prop], target, arguments);
-						self._negotiationView.update(target);
-					}
-				}
-
-				return Reflect.get(target, prop, receiver);
-			}
-		})
+		this._negotiationList = ProxyFactory.create(new NegotiationList(), ['add', 'clear'], function(a){ return self._negotiationView.update(a) });
 
 		this._negotiationView = new NegotiationView($('#negotiation-view'));
 		this._negotiationView.update(this._negotiationList);
