@@ -26,11 +26,15 @@ class NegotiationView {
     					<td>${n.price}</td>
     					<td>${n.volume}</td>
     				</tr>
-    				
+
         		`).join('')}
         	</tbody>
         
         	<tfoot>
+        		<tr>
+        			<td colspan="3"></td>
+        			<td>${model.negotiations.reduce((total, n) => total + n.volume, 0.0)}</td>
+        		</tr>
         	</tfoot>
     	</table>
     	`;
