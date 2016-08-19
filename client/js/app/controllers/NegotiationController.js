@@ -7,15 +7,22 @@ class NegotiationController {
 		this._inputDate = $('#date');
 		this._inputAmount = $('#amount');
 		this._inputPrice = $('#price');
+		
 		this._negotiationList = new NegotiationList();
+		
 		this._negotiationView = new NegotiationView($('#negotiation-view'));
 		this._negotiationView.update(this._negotiationList);
+		
+		this._message = new Message();
+		this._messageView = new MessageView($('#message-view'));
 	}
 	
 	add(e) {
 		e.preventDefault();
 		
 		this._negotiationList.add(this._createNegotiation());
+		this._message.text = 'Negotiation was successfully added !';
+		this._messageView.update(this._message);
 		this._negotiationView.update(this._negotiationList);
 		this._clearForm();
 	}

@@ -10,7 +10,7 @@
 <body class="container">
     
     <h1 class="text-center">Exchange Negotiations</h1>
-    
+    <div id="message-view"></div>
     <form class="form" onsubmit="negotiationController.add(event)">
         
         <div class="form-group">
@@ -44,14 +44,28 @@
     
     <div id="negotiation-view"></div>
     
+    <!-- models -->
     <script src="js/app/models/Negotiation.js"></script>
     <script src="js/app/models/NegotiationList.js"></script>
+    <script src="js/app/models/Message.js"></script>
+    <!-- /models -->
+
+    <!-- controllers -->
     <script src="js/app/controllers/NegotiationController.js"></script>
+    <!-- /controller -->
+
+    <!-- helpers -->
     <script src="js/app/helpers/DateHelper.js"></script>
+    <!-- /helpers -->
+
+    <!-- views -->
+    <script src="js/app/views/View.js"></script>
     <script src="js/app/views/NegotiationView.js"></script>
+    <script src="js/app/views/MessageView.js"></script>
+    <!-- /views -->
+    
     <script type="text/javascript">
         let negotiationController = new NegotiationController();
-
     </script>
 </body>
 </html>
