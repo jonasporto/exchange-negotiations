@@ -8,10 +8,27 @@ class NegotiationController {
 		this._inputAmount = $('#amount');
 		this._inputPrice = $('#price');
 		
-		this._negotiationList = new NegotiationList(this, function(negotiationList) {
-			this._negotiationView.update(negotiationList);
-		});
+		// this._negotiationList = 
+		// 	new NegotiationList(
+		// 		negotiationList => this._negotiationView.update(negotiationList)
+		// 	);
 		
+		let self = this;
+
+		this._negotiationList = new Proxy(new NegotiationList(), {
+			get(target, prop, receiver) {
+				if (['add', 'clear'].includes(prop) && typeof(target[prop]) == typeof(Function)) {
+					return function() {
+						console.log(`intercepting ${prop}`);
+						Reflect.apply(target[prop], target, arguments);
+						self._negotiationView.update(target);
+					}
+				}
+
+				return Reflect.get(target, prop, receiver);
+			}
+		})
+
 		this._negotiationView = new NegotiationView($('#negotiation-view'));
 		this._negotiationView.update(this._negotiationList);
 		
