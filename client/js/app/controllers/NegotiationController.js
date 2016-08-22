@@ -8,30 +8,25 @@ class NegotiationController {
 		this._inputAmount = $('#amount');
 		this._inputPrice = $('#price');
 		
-		// this._negotiationList = 
-		// 	new NegotiationList(
-		// 		negotiationList => this._negotiationView.update(negotiationList)
-		// 	);
-		
-		let self = this;
+		this._negotiationList = new Bind(
+			new NegotiationList(), 
+			new NegotiationView($('#negotiation-view')), 
+			'add', 
+			'clear'
+		);
 
-		this._negotiationList = ProxyFactory.create(new NegotiationList(), ['add', 'clear'], function(a){ return self._negotiationView.update(a) });
-
-		this._negotiationView = new NegotiationView($('#negotiation-view'));
-		this._negotiationView.update(this._negotiationList);
-		
-		this._message = new Message();
-		this._messageView = new MessageView($('#message-view'));
+		this._message = new Bind(
+			new Message(), 
+			new MessageView($('#message-view')), 
+			'text'
+		);
 	}
 	
 	add(e) {
 		e.preventDefault();
 		
 		this._negotiationList.add(this._createNegotiation());
-		
 		this._message.text = 'Negotiation was successfully added !';
-		this._messageView.update(this._message);
-		
 		this._clearForm();
 	}
 
@@ -46,10 +41,7 @@ class NegotiationController {
 	clear() {
 
 		this._negotiationList.clear();
-		
-
 		this._message.text = 'Negotiation was successfully cleared !';
-		this._messageView.update(this._message);
 	}
 
 	_clearForm() {
