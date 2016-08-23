@@ -33,10 +33,10 @@ class NegotiationController {
 	importNegotiation() {
 		
 		let service = new NegotiationService();
-		service.getWeekNegotiation((err, negotiations) => {
+		service.getWeekNegotiation((error, negotiations) => {
 			
-			if (err) {
-				this._message.text = err;
+			if (error) {
+				this._message.text = error;
 				return;
 			}
 

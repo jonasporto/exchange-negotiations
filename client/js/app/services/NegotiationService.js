@@ -14,19 +14,20 @@ class NegotiationService {
 		};
 
 		xhr.onreadystatechange = () => {
+
 			if (xhr.readyState == XHRState.COMPLETED_AND_READY_ANSWER) {
 				if (xhr.status == XHRStatus.OK) {
 					
-					callback(
+					return callback(
 						null, 
 						JSON.parse(xhr.responseText).map(
 							object => new Negotiation(new Date(object.date), object.amount, object.value)
 						)
 					);
 					
-				} else {
-					callback('Error while trying to get negotiations on server', null);
-				}
+				} 
+				
+				return callback('Error while trying to get negotiations on server', null);
 			}
 		};
 
