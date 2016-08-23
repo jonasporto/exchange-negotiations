@@ -40,15 +40,19 @@ class NegotiationController {
 		};
 
 		const XHRState = {
-			COMPLETED_AND_READY_ANSWER: 4
+			COMPLETED_AND_READY_ANSWER : 4
 		};
 
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState == XHRState.COMPLETED_AND_READY_ANSWER) {
 				if (xhr.status == XHRStatus.OK) {
-					console.log('Getting negotiations on the server');
+					JSON.parse(xhr.responseText)
+					.map(object => new Negotiation(new Date(object.date), object.amount, object.value))
+					.forEach(negotiation => this._negotiationList.add(negotiation));
+					this._message.text = 'Negotiation was successfully imported';
 				} else {
-					console.log('Error while trying to get negotiations on server');
+					this._message.text = 'Error while trying to get negotiations on server';
+					console.log(JSON.parse(xhr.responseText));
 				}
 			}
 		};
