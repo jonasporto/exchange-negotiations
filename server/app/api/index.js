@@ -8,21 +8,21 @@ var beforeLastDate = new Date();
 beforeLastDate.setDate(currentDate.getDate() - 14);
 
 var negotiations = [
-      { data : currentDate, amount : 1, value : 150},
-      { data : currentDate, amount : 2, value : 250},
-      { data : currentDate, amount : 3, value : 350},
-      { data : previousDate, amount : 1, value : 450},
-      { data : previousDate, amount : 2, value : 550},
-      { data : previousDate, amount : 3, value : 650},
-      { data : beforeLastDate, amount : 1, value : 750},
-      { data : beforeLastDate, amount : 2, value : 950},
-      { data : beforeLastDate, amount : 3, value : 950}
+      { date : currentDate, amount : 1, value : 150},
+      { date : currentDate, amount : 2, value : 250},
+      { date : currentDate, amount : 3, value : 350},
+      { date : previousDate, amount : 1, value : 450},
+      { date : previousDate, amount : 2, value : 550},
+      { date : previousDate, amount : 3, value : 650},
+      { date : beforeLastDate, amount : 1, value : 750},
+      { date : beforeLastDate, amount : 2, value : 950},
+      { date : beforeLastDate, amount : 3, value : 950}
     ];
 
 
 api.weekList = function(req, res) {
     var currentNegotiations = negotiations.filter(function(negotiation) {
-        return negotiation.data > previousDate;
+        return negotiation.date > previousDate;
     });
     res.json(currentNegotiations);
 };
@@ -30,7 +30,7 @@ api.weekList = function(req, res) {
 api.previousList = function(req, res) {
    
    var previousNegotiations = negotiations.filter(function(negotiation) {
-        return negotiation.data < currentDate && negotiation.data > beforeLastDate;
+        return negotiation.date < currentDate && negotiation.date > beforeLastDate;
     });
 	setTimeout(function() {
 		res.json(previousNegotiations);	
@@ -41,7 +41,7 @@ api.previousList = function(req, res) {
 api.beforeLastList = function(req, res) {
 
    var beforeLastNegotiations = negotiations.filter(function(negotiation) {
-        return negotiation.data < previousDate;
+        return negotiation.date < previousDate;
     });
     res.json(beforeLastNegotiations);
     
