@@ -30,6 +30,32 @@ class NegotiationController {
 		this._clearForm();
 	}
 
+	importNegotiation() {
+		
+		let xhr = new XMLHttpRequest();
+		xhr.open('GET', 'negotiations/week');
+		
+		const XHRStatus = {
+			OK : 200
+		};
+
+		const XHRState = {
+			COMPLETED_AND_READY_ANSWER: 4
+		};
+
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState == XHRState.COMPLETED_AND_READY_ANSWER) {
+				if (xhr.status == XHRStatus.OK) {
+					console.log('Getting negotiations on the server');
+				} else {
+					console.log('Error while trying to get negotiations on server');
+				}
+			}
+		};
+
+		xhr.send();
+	}
+
 	_createNegotiation() {
 		return new Negotiation(
 			DateHelper.toDate(this._inputDate.value),
