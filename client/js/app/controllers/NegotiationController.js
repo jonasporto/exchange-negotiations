@@ -32,32 +32,17 @@ class NegotiationController {
 
 	importNegotiation() {
 		
-		let xhr = new XMLHttpRequest();
-		xhr.open('GET', 'negotiations/week');
-		
-		const XHRStatus = {
-			OK : 200
-		};
-
-		const XHRState = {
-			COMPLETED_AND_READY_ANSWER : 4
-		};
-
-		xhr.onreadystatechange = () => {
-			if (xhr.readyState == XHRState.COMPLETED_AND_READY_ANSWER) {
-				if (xhr.status == XHRStatus.OK) {
-					JSON.parse(xhr.responseText)
-					.map(object => new Negotiation(new Date(object.date), object.amount, object.value))
-					.forEach(negotiation => this._negotiationList.add(negotiation));
-					this._message.text = 'Negotiation was successfully imported';
-				} else {
-					this._message.text = 'Error while trying to get negotiations on server';
-					console.log(JSON.parse(xhr.responseText));
-				}
+		let service = new NegotiationService();
+		service.getWeekNegotiation((err, negotiations) => {
+			
+			if (err) {
+				this._message.text = err;
+				return;
 			}
-		};
 
-		xhr.send();
+			negotiations.forEach(negotiation => this._negotiationList.add(negotiation));
+			this._message.text = 'Negotiation was successfully imported';
+		});
 	}
 
 	_createNegotiation() {
