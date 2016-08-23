@@ -1,4 +1,4 @@
-/* Código simplório, apenas para fornecer o serviço para a aplicação */
+/* ad-hoc code to supply a web service to the front end application */
 
 var express = require('express')
     ,app = express()

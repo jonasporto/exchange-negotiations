@@ -1,18 +1,18 @@
-/* Código simplório, apenas para fornecer o serviço para a aplicação */
+/* ad-hoc code to supply a web service to the front end application */
 
 var api = require('../api');
 
 module.exports  = function(app) {
     
-    app.route('/negociacoes/semana')
-        .get(api.listaSemana);
+    app.route('/negotiations/week')
+        .get(api.weekList);
         
-    app.route('/negociacoes/anterior')
-        .get(api.listaAnterior);
+    app.route('/negotiations/previous')
+        .get(api.previousList);
         
-    app.route('/negociacoes/retrasada')
-        .get(api.listaRetrasada);  
+    app.route('/negotiations/before-last')
+        .get(api.beforeLastList);  
         
-    app.route('/negociacoes')
-        .post(api.cadastraNegociacao);          
+    app.route('/negotiations')
+        .post(api.addNegotiation);          
 };
