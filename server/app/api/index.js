@@ -2,8 +2,8 @@
 var api = {}
 
 var currentDate = new Date();
-var previousDate = new Date();
-previousDate.setDate(currentDate.getDate() - 7);
+var lastDate = new Date();
+lastDate.setDate(currentDate.getDate() - 7);
 var beforeLastDate = new Date();
 beforeLastDate.setDate(currentDate.getDate() - 14);
 
@@ -11,9 +11,9 @@ var negotiations = [
       { date : currentDate, amount : 1, value : 150},
       { date : currentDate, amount : 2, value : 250},
       { date : currentDate, amount : 3, value : 350},
-      { date : previousDate, amount : 1, value : 450},
-      { date : previousDate, amount : 2, value : 550},
-      { date : previousDate, amount : 3, value : 650},
+      { date : lastDate, amount : 1, value : 450},
+      { date : lastDate, amount : 2, value : 550},
+      { date : lastDate, amount : 3, value : 650},
       { date : beforeLastDate, amount : 1, value : 750},
       { date : beforeLastDate, amount : 2, value : 950},
       { date : beforeLastDate, amount : 3, value : 950}
@@ -22,18 +22,18 @@ var negotiations = [
 
 api.weekList = function(req, res) {
     var currentNegotiations = negotiations.filter(function(negotiation) {
-        return negotiation.date > previousDate;
+        return negotiation.date > lastDate;
     });
     res.json(currentNegotiations);
 };
 
-api.previousList = function(req, res) {
+api.lastList = function(req, res) {
    
-   var previousNegotiations = negotiations.filter(function(negotiation) {
+   var lastNegotiations = negotiations.filter(function(negotiation) {
         return negotiation.date < currentDate && negotiation.date > beforeLastDate;
     });
 	setTimeout(function() {
-		res.json(previousNegotiations);	
+		res.json(lastNegotiations);	
 	}, 500);
     
 };
@@ -41,7 +41,7 @@ api.previousList = function(req, res) {
 api.beforeLastList = function(req, res) {
 
    var beforeLastNegotiations = negotiations.filter(function(negotiation) {
-        return negotiation.date < previousDate;
+        return negotiation.date < lastDate;
     });
     res.json(beforeLastNegotiations);
     

@@ -7,8 +7,8 @@ module.exports  = function(app) {
     app.route('/negotiations/week')
         .get(api.weekList);
         
-    app.route('/negotiations/previous')
-        .get(api.previousList);
+    app.route('/negotiations/last')
+        .get(api.lastList);
         
     app.route('/negotiations/before-last')
         .get(api.beforeLastList);  
