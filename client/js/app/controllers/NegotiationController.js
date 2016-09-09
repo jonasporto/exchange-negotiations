@@ -7,12 +7,16 @@ class NegotiationController {
 		this._inputDate = $('#date');
 		this._inputAmount = $('#amount');
 		this._inputPrice = $('#price');
+
+		this._order_by = '';
 		
 		this._negotiationList = new Bind(
 			new NegotiationList(), 
 			new NegotiationView($('#negotiation-view')), 
 			'add', 
-			'clear'
+			'clear',
+			'sort',
+			'reverse'
 		);
 
 		this._message = new Bind(
@@ -46,6 +50,17 @@ class NegotiationController {
 			this._message.text = 'Negotiation was successfully imported';
 		})
 		.catch(error => this._message.text = error);
+	}
+
+	sortByColumn(column) {
+		
+		if (this._order_by == column) {
+			this._negotiationList.reverse();
+		} else {
+			this._negotiationList.sort((a, b) => a[column] - b[column]); 		
+		}
+
+		return this._order_by = column;
 	}
 
 	_createNegotiation() {

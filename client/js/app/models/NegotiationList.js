@@ -15,4 +15,12 @@ class NegotiationList {
 	clear() {
 		this._negotiations = [];
 	}
+
+	sort(impl) {
+        this._negotiations.sort(impl);        
+    }
+
+    reverse() {
+    	this._negotiations.reverse();        
+    }
 }

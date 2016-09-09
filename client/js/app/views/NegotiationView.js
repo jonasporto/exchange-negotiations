@@ -6,10 +6,10 @@ class NegotiationView extends View {
 		<table class="table table-hover table-bordered">
 			<thead>
 	            <tr>
-	                <th>Date</th>
-	                <th>Amount</th>
-	                <th>Price</th>
-	                <th>Volume</th>
+	                <th onclick="negotiationController.sortByColumn('date')">Date</th>
+	                <th onclick="negotiationController.sortByColumn('amount')">Amount</th>
+	                <th onclick="negotiationController.sortByColumn('price')"> Price</th>
+	                <th onclick="negotiationController.sortByColumn('volume')">Volume</th>
 	            </tr>
         	</thead>
         
