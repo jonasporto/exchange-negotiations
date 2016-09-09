@@ -49,10 +49,9 @@ api.beforeLastList = function(req, res) {
 
 api.addNegotiation = function(req, res) {
 
-   console.log(req.body);
-   req.body.data = new Date(req.body.data.replace(/-/g,'/'));
+   req.body.date = new Date(req.body.date.replace(/-/g,'/'));
    negotiations.push(req.body);
-   res.status(200).json("Negociação recebida");
+   res.status(200).json("Negotiation Received");
 };
 
 

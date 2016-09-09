@@ -11,7 +11,7 @@
     
     <h1 class="text-center">Exchange Negotiations</h1>
     <div id="message-view"></div>
-    <form class="form" onsubmit="negotiationController.add(event)">
+    <form class="form">
         
         <div class="form-group">
             <label for="date">Date</label>
@@ -19,7 +19,7 @@
         </div>    
         
         <div class="form-group">
-            <label for="quantidade">Amount</label>
+            <label for="amount">Amount</label>
             <input type="number" min="1" step="1" id="amount" class="form-control" value="1" required/>
         </div>
         
@@ -28,7 +28,7 @@
             <input id="price" type="number" class="form-control"  min="0.01" step="0.01" value="0.0" required />
         </div>
         
-        <button class="btn btn-primary" type="submit">Include</button>
+        <button class="btn btn-primary" type="submit" onclick="sendPost(event)">Include</button>
     </form>
     
     <div class="text-center">
@@ -75,6 +75,35 @@
     
     <script type="text/javascript">
         let negotiationController = new NegotiationController();
+    </script>
+
+     <script>
+        function sendPost(ev) {
+
+            ev.preventDefault();
+
+            let $ = document.querySelector.bind(document);
+            inputDate = $('#date');
+            inputAmount = $('#amount');
+            inputPrice = $('#price');
+
+            let negotiation = {
+                date: inputDate.value,
+                amount: inputAmount.value,
+                price: inputPrice.value
+            };
+
+            new HttpService()
+                .post('/negotiations', negotiation)
+                .then(() => {
+                    inputDate.value = '';
+                    inputAmount.value = 1;
+                    inputPrice.value = 0.0;
+                    inputDate.focus();
+                    alert('Negotiation was sent!');
+                })
+                .catch(error => alert(`Error - Negotiation wasn't sent: ${error}`));
+        }
     </script>
 </body>
 </html>

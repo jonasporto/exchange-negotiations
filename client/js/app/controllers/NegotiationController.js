@@ -28,10 +28,13 @@ class NegotiationController {
 	
 	add(e) {
 		e.preventDefault();
-		
-		this._negotiationList.add(this._createNegotiation());
-		this._message.text = 'Negotiation was successfully added !';
-		this._clearForm();
+		try {
+			this._negotiationList.add(this._createNegotiation());
+			this._message.text = 'Negotiation was successfully added !';
+			this._clearForm();
+		} catch(error) {
+            this._mensage.text = error;
+        }
 	}
 
 	importNegotiation() {
@@ -55,12 +58,11 @@ class NegotiationController {
 	sortByColumn(column) {
 		
 		if (this._order_by == column) {
-			this._negotiationList.reverse();
-		} else {
-			this._negotiationList.sort((a, b) => a[column] - b[column]); 		
+			return this._negotiationList.reverse();
 		}
-
-		return this._order_by = column;
+		
+		this._negotiationList.sort((a, b) => a[column] - b[column]); 		
+		this._order_by = column;
 	}
 
 	_createNegotiation() {
